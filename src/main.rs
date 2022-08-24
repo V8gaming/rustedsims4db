@@ -149,8 +149,6 @@ fn urlregex(url: &str) {
 
     let author = pull[0];
 
-    //println!("{}, {}, {}, {}, {}, Sims 4", id, name, category, author, url);
-    //println!("{}", format!("INSERT INTO sims4mods VALUES ('{}', '{}', '{}', '{}', '{}', '{}')", id, name, category, author, url, "Sims 4"));
     con.execute(format!("INSERT INTO sims4mods VALUES ('{}', '{}', '{}', '{}', '{}', '{}')", id, name, category, author, url, "Sims 4")).map_err(|err| println!("{:?}", err)).ok();
     
 }   
