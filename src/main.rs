@@ -149,7 +149,7 @@ fn urlregex(url: &str) {
     let pull: Vec<_> = authorregex.split(pull[1]).into_iter().collect();
 
     let author = pull[0];
-
+    // format and execute the data into the database
     con.execute(format!("INSERT INTO sims4mods VALUES ('{}', '{}', '{}', '{}', '{}', '{}')", id, name, category, author, url, "Sims 4")).map_err(|err| println!("{:?}", err)).ok();
     
 }   
