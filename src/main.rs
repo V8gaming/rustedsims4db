@@ -43,6 +43,7 @@ struct Args {
     
 }
 
+// initalise the global varibles as: Amount of sims4 mods wanted, Threads wanted, Amount of Sims4 mods found, Amount of 404, amount of non 404, Amount of Sims4 mods found.
 static GLOBAL_S4MODS_MAX: i32 = 100;
 static GLOBAL_THREAD_MAX: i32 = 10;
 static GLOBAL_TIMES_AMOUNT: AtomicI32 = AtomicI32::new(0);
