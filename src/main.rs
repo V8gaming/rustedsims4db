@@ -1,5 +1,4 @@
 #![feature(atomic_from_mut, inline_const)]
-#![feature(path_try_exists)]
 use error_chain::error_chain;
 use rand::prelude::*;
 use regex::Regex;
