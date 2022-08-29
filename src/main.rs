@@ -136,7 +136,7 @@ fn statussucess(res: reqwest::blocking::Response, i: i32, save: i32){
 
 fn urlregex(url: &str, save: i32) {
     let con = sqlite::open("./sims4.sqlite3").unwrap();
-    // create a table
+    // create a table to store the date for the sims4 mods
     con.execute("CREATE TABLE IF NOT EXISTS sims4mods (id INTEGER, name TEXT, category TEXT, author TEXT, url TEXT, game TEXT)").map_err(|err| println!("{:?}", err)).ok();
     let idregex = Regex::new(r"id/").unwrap();
     let pull: Vec<_> = idregex.split(url).into_iter().collect();
