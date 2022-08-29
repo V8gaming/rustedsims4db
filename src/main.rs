@@ -1,4 +1,3 @@
-#![feature(atomic_from_mut, inline_const)]
 use error_chain::error_chain;
 use rand::prelude::*;
 use regex::Regex;
