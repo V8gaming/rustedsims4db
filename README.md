@@ -3,9 +3,8 @@
 ## TODO
 
 - [x] Multithreading.
-- [ ] Arguments.
+- [x] Arguments, might work
 - [ ] Add comments.
-- [ ] Test saveids.
+- [ ] Test arguments.
 - [ ] Get sqlite statements into vec then iter through all and submit to database.
-- [ ] Scan for Duplicates.
 - [ ] Graph like Obsidian.

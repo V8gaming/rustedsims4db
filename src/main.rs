@@ -61,7 +61,7 @@ async fn main() -> Result<()> {
     }
     if args.import == 1 {
         if Path::new(&database).try_exists().unwrap() {
-            importids();
+            importids(database.clone(), args.save);
         }
     }
     let mut handlers = Vec::new();
@@ -186,8 +186,26 @@ fn remove(strength: i32, database: String) {
     }
 }
 
-fn importids() {
-    todo!()
+fn importids(database: String, save: i32) {
+    let con = sqlite::open(database).unwrap();
+    con.execute("CREATE TABLE IF NOT EXISTS sims4mods (id INTEGER, name TEXT, category TEXT, author TEXT, url TEXT, game TEXT)").map_err(|err| println!("{:?}", err)).ok();
+    con.iterate("SELECT id FROM ids", |ids| {
+        for &value in ids.iter() {
+            println!("{:?}", value.0);
+            let url= format!("https://www.thesimsresource.com/downloads/{}/", value.0);
+            let res = reqwest::blocking::get(url).unwrap();
+            if res.status() != 404 {
+                let url = res.url();
+                urlregex(&url.as_str(), save);
+            }
+            //println!("url:\n{:#?}", url);
+            
+            //con.execute(format!("DELETE FROM ids WHERE id = {}", value.0)).map_err(|err| println!("{:?}", err)).ok();
+            //con.execute(format!("INSERT FROM ids WHERE id = {}", value.0)).map_err(|err| println!("{:?}", err)).ok();
+        }
+        true
+    }).unwrap();
+    
 }
 
 fn checkids(save: i32, database: String) {
@@ -197,8 +215,8 @@ fn checkids(save: i32, database: String) {
         con.iterate("SELECT * FROM ids GROUP BY id HAVING COUNT(*) > 1", |pairs| {
             for &value in pairs.iter() {
                 println!("{:?}", value);
-                con.execute(format!("DELETE FROM ids WHERE id = {}", value.0)).map_err(|err| println!("{:?}", err)).ok();
-                con.execute(format!("INSERT FROM ids WHERE id = {}", value.0)).map_err(|err| println!("{:?}", err)).ok();
+                //con.execute(format!("DELETE FROM ids WHERE id = {}", value.0)).map_err(|err| println!("{:?}", err)).ok();
+                //con.execute(format!("INSERT FROM ids WHERE id = {}", value.0)).map_err(|err| println!("{:?}", err)).ok();
             }
             true
         }).unwrap();
