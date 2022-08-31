@@ -1,12 +1,12 @@
+use clap::Parser;
 use error_chain::error_chain;
 use rand::prelude::*;
 use regex::Regex;
-use std::path::Path;
-use std::thread;
-use std::sync::atomic::*;
-use clap::Parser;
-use std::fs;
 use std::env::current_dir;
+use std::fs;
+use std::path::Path;
+use std::sync::atomic::*;
+use std::thread;
 
 error_chain! {
     foreign_links {
